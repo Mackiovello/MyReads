@@ -5,7 +5,7 @@ function Book(props) {
   return (
     <div className="book">
       <div className="book-top">
-        <div className="book-cover" style={{ width: props.cover.width, height: props.cover.height, backgroundImage: props.cover.image }}></div>
+        <div className="book-cover" style={{ width: 128, height: 196, backgroundImage: `url('${props.image}')` }}></div>
           <div className="book-shelf-changer">
             <select>
               <option value="none" disabled>Move to...</option>
@@ -25,11 +25,7 @@ function Book(props) {
 Book.propTypes = {
   title: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
-  cover: PropTypes.shape({
-    height: PropTypes.number.isRequired,
-    width: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired
-  })
+  image: PropTypes.string.isRequired
 }
 
 export default Book;

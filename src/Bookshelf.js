@@ -13,8 +13,8 @@ function Bookshelf(props) {
               <li key={index}>
                 <Book 
                   title={book.title}
-                  author={book.author}
-                  cover={book.cover}
+                  author={book.authors[0]}
+                  image={book.imageLinks.smallThumbnail}
                 />
               </li>
             ))
