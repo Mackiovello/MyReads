@@ -1,7 +1,7 @@
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
-import Book from './Book'
+import Bookshelf from './Bookshelf'
 
 class BooksApp extends React.Component {
   state = {
@@ -107,62 +107,18 @@ class BooksApp extends React.Component {
               <h1>MyReads</h1>
             </div>
             <div className="list-books-content">
-              <div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Currently Reading</h2>
-                  <div className="bookshelf-books">
-                    <ol className="books-grid">
-                      {
-                        this.state.currentlyReadingBooks.map((book, index) => (
-                          <li key={index}>
-                            <Book 
-                              title={book.title}
-                              author={book.author}
-                              cover={book.cover}
-                            />
-                          </li>
-                        ))
-                      }
-                    </ol>
-                  </div>
-                </div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Want to Read</h2>
-                  <div className="bookshelf-books">
-                    <ol className="books-grid">
-                      {
-                        this.state.toReadBooks.map((book, index) => (
-                          <li key={index}>
-                            <Book 
-                              title={book.title}
-                              author={book.author}
-                              cover={book.cover}
-                            />
-                          </li>
-                        ))
-                      }
-                    </ol>
-                  </div>
-                </div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Read</h2>
-                  <div className="bookshelf-books">
-                    <ol className="books-grid">
-                      {
-                        this.state.readBooks.map((book, index) => (
-                          <li key={index}>
-                            <Book 
-                              title={book.title}
-                              author={book.author}
-                              cover={book.cover}
-                            />
-                          </li>
-                        ))
-                      }
-                    </ol>
-                  </div>
-                </div>
-              </div>
+              <Bookshelf 
+                books={this.state.currentlyReadingBooks} 
+                title="Currently reading"  
+              />
+              <Bookshelf
+                books={this.state.toReadBooks}
+                title="Want to read"
+              />
+              <Bookshelf
+                books={this.state.readBooks}
+                title="Read"
+              />
             </div>
             <div className="open-search">
               <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
