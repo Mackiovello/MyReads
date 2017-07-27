@@ -1,6 +1,6 @@
-import React from 'react'
-import Book from './Book'
-import PropTypes from "prop-types";
+import React from 'react';
+import Book from './Book';
+import PropTypes from 'prop-types';
 
 function Bookshelf(props) {
   return (
@@ -25,6 +25,6 @@ Bookshelf.propTypes = {
   title: PropTypes.string.isRequired,
   books: PropTypes.array.isRequired,
   changeShelf: PropTypes.func.isRequired
-}
+};
 
 export default Bookshelf;

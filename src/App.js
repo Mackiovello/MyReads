@@ -1,53 +1,50 @@
-import React from 'react'
-import * as BooksAPI from './BooksAPI'
-import './App.css'
-import Bookshelf from './Bookshelf'
-import Search from './Search'
-import { Route, Link } from 'react-router-dom'
+import React from 'react';
+import * as BooksAPI from './BooksAPI';
+import './App.css';
+import Bookshelf from './Bookshelf';
+import Search from './Search';
+import { Route, Link } from 'react-router-dom';
 
 class BooksApp extends React.Component {
   constructor() {
-    super()
-    this.changeShelf = this.changeShelf.bind(this)
+    super();
+    this.changeShelf = this.changeShelf.bind(this);
   }
 
   state = {
     books: [],
     shelves: [
-      "currentlyReading",
-      "wantToRead",
-      "read"
+      'currentlyReading',
+      'wantToRead',
+      'read'
     ]
-  }
+  };
 
   componentWillMount() {
     BooksAPI.getAll().then(books => {
-      this.setState({ books })
-    })
+      this.setState({ books });
+    });
   }
 
   changeShelf(book, shelf) {
-    book.shelf = shelf
-    BooksAPI.update(book, shelf)
+    book.shelf = shelf;
+    BooksAPI.update(book, shelf);
 
-    let updatedBooks = []
-    if (this.state.books.includes(book)) {
-      updatedBooks = this.state.books.map(b => b.id === book.id ? book : b)
-    } else {
-      updatedBooks = this.state.books.concat(book)
-    }
+    const updatedBooks = this.state.books.includes(book) ?
+      this.state.books.map(b => b.id === book.id ? book : b) :
+      this.state.books.concat(book);
 
-    this.setState({ books : updatedBooks })   
+    this.setState({ books : updatedBooks });   
   }
 
   createShelfTitle(shelf) {
-    let shelfTitle = shelf.split(/(?=[A-Z])/).join(" ")
-    shelfTitle = shelfTitle.slice(0, 1).toUpperCase() + shelfTitle.slice(1)
-    return shelfTitle
+    let shelfTitle = shelf.split(/(?=[A-Z])/).join(" ");
+    shelfTitle = shelfTitle.slice(0, 1).toUpperCase() + shelfTitle.slice(1);
+    return shelfTitle;
   }
 
   render() {
-    const { books, shelves } = this.state
+    const { books, shelves } = this.state;
 
     return (
       <div className="app">

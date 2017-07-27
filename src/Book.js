@@ -1,11 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 function Book(props) {
   return (
     <div className="book">
       <div className="book-top">
-        <div className="book-cover" style={{ width: 128, height: 196, backgroundImage: `url('${props.book.imageLinks.smallThumbnail}')` }}></div>
+        <div className="book-cover" style={{ width: 128, height: 196, backgroundImage: `url("${props.book.imageLinks.smallThumbnail}")` }}></div>
           <div className="book-shelf-changer">
             <select value={props.book.shelf} onChange={(event) => props.onChangedShelf(props.book, event.target.value)}>
               <option value="none" disabled>Move to...</option>
@@ -25,6 +25,6 @@ function Book(props) {
 Book.propTypes = {
   book: PropTypes.object.isRequired,
   onChangedShelf: PropTypes.func.isRequired
-}
+};
 
 export default Book;
