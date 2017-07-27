@@ -2,8 +2,8 @@ import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Bookshelf from './Bookshelf'
-import { Route } from 'react-router-dom'
-import { Link } from 'react-router-dom'
+import Search from './Search'
+import { Route, Link } from 'react-router-dom'
 
 class BooksApp extends React.Component {
   constructor() {
@@ -41,48 +41,37 @@ class BooksApp extends React.Component {
   }
 
   render() {
+    const { books, shelves } = this.state
+
     return (
-        <div className="app">
-      
-          <Route path="/search" render={() => (
-            <div className="search-books">
-              <div className="search-books-bar">
-                <Link className="close-search" to="/">Close</Link> 
-                <div className="search-books-input-wrapper">
-                  <input type="text" placeholder="Search by title or author"/>
-                </div>
-              </div>
-              <div className="search-books-results">
-                <ol className="books-grid"></ol>
-              </div>
-            </div>
-          )}/> 
+      <div className="app">
+    
+        <Route path="/search" render={() => <Search/>}/> 
 
-          <Route exact path="/" render={() => (
-            <div className="list-books">
-              <div className="list-books-title">
-                <h1>MyReads</h1>
-              </div>
-              <div className="list-books-content">
-                {
-                  this.state.shelves.map(shelf => {
-                      return (
-                        <Bookshelf
-                          key={shelf} 
-                          books={this.state.books.filter(book => book.shelf === shelf)} 
-                          changeShelf={this.changeShelf}
-                          title={this.createShelfTitle(shelf)} 
-                        />
-                      ) 
-                  })
-                }
-              </div>
-              <div className="open-search">
-                  <Link to="/search">Add a book</Link> 
-              </div>
+        <Route exact path="/" render={() => (
+          <div className="list-books">
+            <div className="list-books-title">
+              <h1>MyReads</h1>
             </div>
-          )}/> 
-
+            <div className="list-books-content">
+              {
+                shelves.map(shelf => {
+                  return (
+                    <Bookshelf
+                      key={shelf} 
+                      books={books.filter(book => book.shelf === shelf)} 
+                      changeShelf={this.changeShelf}
+                      title={this.createShelfTitle(shelf)} 
+                    />
+                  ) 
+                })
+              }
+            </div>
+            <div className="open-search">
+              <Link to="/search">Add a book</Link> 
+            </div>
+          </div>
+        )}/> 
       </div>
     )
   }
