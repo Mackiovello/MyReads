@@ -30,7 +30,6 @@ class BooksApp extends React.Component {
     book.shelf = shelf
     BooksAPI.update(book, shelf)
 
-
     let updatedBooks = []
     if (this.state.books.includes(book)) {
       updatedBooks = this.state.books.map(b => b.id === book.id ? book : b)

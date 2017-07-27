@@ -23,7 +23,8 @@ function Bookshelf(props) {
 
 Bookshelf.propTypes = {
   title: PropTypes.string.isRequired,
-  books: PropTypes.array.isRequired
+  books: PropTypes.array.isRequired,
+  changeShelf: PropTypes.func.isRequired
 }
 
 export default Bookshelf;
