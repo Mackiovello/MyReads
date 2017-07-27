@@ -12,12 +12,7 @@ class BooksApp extends React.Component {
   }
 
   state = {
-    books: [],
-    shelves: [
-      'currentlyReading',
-      'wantToRead',
-      'read'
-    ]
+    books: []
   };
 
   componentWillMount() {
@@ -27,14 +22,14 @@ class BooksApp extends React.Component {
   }
 
   changeShelf(book, shelf) {
-    book.shelf = shelf;
-    BooksAPI.update(book, shelf);
-
-    const updatedBooks = this.state.books.includes(book) ?
-      this.state.books.map(b => b.id === book.id ? book : b) :
-      this.state.books.concat(book);
-
-    this.setState({ books : updatedBooks });   
+    if (book.shelf !== shelf) {
+      BooksAPI.update(book, shelf).then(() => {
+        book.shelf = shelf
+        this.setState(prevState => ({
+          books: prevState.books.filter(b => b.id !== book.id).concat(book)
+        }))
+      })
+    }
   }
 
   createShelfTitle(shelf) {
@@ -44,7 +39,7 @@ class BooksApp extends React.Component {
   }
 
   render() {
-    const { books, shelves } = this.state;
+    const { books } = this.state;
 
     return (
       <div className="app">
@@ -60,7 +55,7 @@ class BooksApp extends React.Component {
             </div>
             <div className="list-books-content">
               {
-                shelves.map(shelf => {
+                ['currentlyReading','wantToRead', 'read'].map(shelf => {
                   return (
                     <Bookshelf
                       key={shelf} 
