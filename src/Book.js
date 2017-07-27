@@ -5,9 +5,9 @@ function Book(props) {
   return (
     <div className="book">
       <div className="book-top">
-        <div className="book-cover" style={{ width: 128, height: 196, backgroundImage: `url('${props.image}')` }}></div>
+        <div className="book-cover" style={{ width: 128, height: 196, backgroundImage: `url('${props.book.imageLinks.smallThumbnail}')` }}></div>
           <div className="book-shelf-changer">
-            <select>
+            <select value={props.book.shelf} onChange={(event) => props.onChangedShelf(props.book, event.target.value)}>
               <option value="none" disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>
@@ -16,16 +16,15 @@ function Book(props) {
             </select>
           </div>
         </div>
-      <div className="book-title">{props.title}</div>
-      <div className="book-authors">{props.author}</div>
+      <div className="book-title">{props.book.title}</div>
+      <div className="book-authors">{props.book.author}</div>
     </div>
   )
 }
 
 Book.propTypes = {
-  title: PropTypes.string.isRequired,
-  author: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired
+  book: PropTypes.object.isRequired,
+  onChangedShelf: PropTypes.func.isRequired
 }
 
 export default Book;

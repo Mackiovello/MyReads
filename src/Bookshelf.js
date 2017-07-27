@@ -11,11 +11,7 @@ function Bookshelf(props) {
           {
             props.books.map((book, index) => (
               <li key={index}>
-                <Book 
-                  title={book.title}
-                  author={book.authors[0]}
-                  image={book.imageLinks.smallThumbnail}
-                />
+                <Book book={book} onChangedShelf={props.changeShelf}/>
               </li>
             ))
           }
