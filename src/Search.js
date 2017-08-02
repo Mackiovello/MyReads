@@ -14,22 +14,26 @@ class Search extends React.Component {
     changeShelf: PropTypes.func.isRequired
   };
 
-  updateQuery(newQuery) {
-    this.setState({
-      query: newQuery.trim()
-    });
+  updateQuery(query) {
+    query = query.trim();
 
-    if (this.state.query) {
-      this.search(this.state.query)
-    };
+    this.setState({ query });
+
+    this.search(query);
   }
 
   search(query) {
-    BooksAPI.search(query, 20).then(books => {
-      if (books instanceof Array) {
-        this.setState({ booksToDisplay: books });
-      };
-    });
+    if (query) {
+      BooksAPI.search(query, 20).then(books => {
+        if (books instanceof Array) {
+          this.setState({ booksToDisplay: books });
+        } else {
+          this.setState({ booksToDisplay: [] });
+        }
+      });
+    } else {
+      this.setState({ booksToDisplay: [] });
+    }
   }
 
   render() {
