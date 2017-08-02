@@ -20,12 +20,20 @@ class Search extends React.Component {
     this.setState({ query });
 
     this.search(query);
-  }
+  };
+
+  replaceBooksFromShelves(booksFromSearch) {
+    return booksFromSearch.map(book => {
+      const bookMatch = this.props.books.find(bookFromShelves => book.id === bookFromShelves.id);
+      return bookMatch ? bookMatch : book;
+    })
+  };
 
   search(query) {
     if (query) {
       BooksAPI.search(query, 20).then(books => {
         if (books instanceof Array) {
+          books = this.replaceBooksFromShelves(books);
           this.setState({ booksToDisplay: books });
         } else {
           this.setState({ booksToDisplay: [] });
@@ -34,7 +42,8 @@ class Search extends React.Component {
     } else {
       this.setState({ booksToDisplay: [] });
     }
-  }
+  };
+
 
   render() {
     return (
