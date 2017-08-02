@@ -3,7 +3,7 @@ import * as BooksAPI from './BooksAPI';
 import './App.css';
 import Search from './Search';
 import Shelves from './Shelves';
-import { Route, Link } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 class BooksApp extends React.Component {
   constructor() {
