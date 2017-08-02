@@ -10,7 +10,7 @@ function Bookshelf(props) {
         <ol className="books-grid">
           {
             props.books.map((book, index) => (
-              <li key={index}>
+              <li key={book.authors[0] + " " + book.name}>
                 <Book book={book} onChangedShelf={props.changeShelf}/>
               </li>
             ))
